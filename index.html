@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050506" />
+  <title>Khaled — Full-Stack &amp; Web Developer</title>
+  <meta name="description" content="Khaled is a full-stack web developer working with React, Node.js, Express, MongoDB, WordPress, and WooCommerce." />
+  <meta name="author" content="Khaled" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Khaled — Full-Stack &amp; Web Developer" />
+  <meta property="og:description" content="Full-stack JavaScript development, WordPress and WooCommerce customization, and practical deployment support." />
+  <meta property="og:image" content="assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Khaled — Full-Stack &amp; Web Developer" />
+  <meta name="twitter:description" content="Full-stack JavaScript development, WordPress and WooCommerce customization, and practical deployment support." />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23050606'/%3E%3Ctext x='50' y='70' font-family='Arial,Helvetica,sans-serif' font-size='58' font-weight='700' fill='%23c6ff3d' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script>
+    document.documentElement.classList.add("js");
+    // Motion is on by default. The footer toggle (or ?motion=off) pauses it.
+    try {
+      const p = new URLSearchParams(location.search).get("motion");
+      const stored = localStorage.getItem("portfolio-motion");
+      if (p === "off" || (!p && stored === "off")) {
+        document.documentElement.classList.add("motion-off");
+      }
+    } catch (e) {}
+  </script>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Ambient texture + interface chrome -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor-ring"></div>
+    <span class="cursor-label" id="cursor-label"></span>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
+
+  <!-- WebGL layer (lives behind the page, visible in hero + contact) -->
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <!-- Loader -->
+  <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading portfolio">
+    <div class="loader-grid">
+      <div class="loader-mark" aria-hidden="true">K<span>.</span></div>
+      <div class="loader-info">
+        <span class="loader-caption">Crafting the experience</span>
+        <span class="loader-count" id="loader-count">00</span>
+      </div>
+      <div class="loader-track"><span id="loader-bar"></span></div>
+      <div class="loader-foot">
+        <span>Khaled — Full-Stack &amp; Web Developer</span>
+        <span>Portfolio 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" id="header">
+    <a class="brand" href="#top" data-nav aria-label="Khaled — back to top">
+      KHALED<span class="brand-dot">.</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <a href="#work" data-nav><span class="nav-index">01</span>Work</a>
+      <a href="#about" data-nav><span class="nav-index">02</span>About</a>
+      <a href="#expertise" data-nav><span class="nav-index">03</span>Expertise</a>
+      <a href="#contact" data-nav><span class="nav-index">05</span>Contact</a>
+    </nav>
+
+    <div class="header-right">
+      <span class="status" data-status>
+        <i class="status-dot"></i>
+        <span>Open for new projects</span>
+      </span>
+      <a class="btn btn-ghost" href="#contact" data-nav data-magnetic>
+        <span>Let's talk</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M12 4H5M12 4V11" /></svg>
+      </a>
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu-inner">
+      <nav class="menu-nav" aria-label="Mobile">
+        <a href="#work" data-nav><span>01</span>Work</a>
+        <a href="#about" data-nav><span>02</span>About</a>
+        <a href="#expertise" data-nav><span>03</span>Expertise</a>
+        <a href="#services" data-nav><span>04</span>Services</a>
+        <a href="#contact" data-nav><span>05</span>Contact</a>
+      </nav>
+      <div class="menu-foot">
+        <div class="menu-socials" id="menu-socials"></div>
+        <a class="menu-mail" id="menu-mail" href="#">khaled2isnoop@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="top">
+      <div class="hero-fallback" aria-hidden="true">
+        <span class="fallback-stars"></span>
+        <span class="fallback-orb"></span>
+        <span class="fallback-orbit fallback-orbit--a"><i></i></span>
+        <span class="fallback-orbit fallback-orbit--b"><i></i></span>
+        <span class="fallback-orbit fallback-orbit--c"><i></i></span>
+      </div>
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <div class="hero-inner">
+        <div class="hero-top">
+          <p class="eyebrow hero-eyebrow" data-hero-fade>
+            <span class="eyebrow-dot"></span>
+            <span id="hero-eyebrow">Portfolio — 2026</span>
+          </p>
+          <p class="hero-meta-top" data-hero-fade>
+            <span>Full-stack developer</span>
+            <span class="meta-slash">/</span>
+            <span>WordPress &amp; WooCommerce</span>
+          </p>
+        </div>
+
+        <h1 class="hero-title" aria-label="Khaled, full-stack web developer">
+          <span class="line"><span class="line-inner" data-hero-line>KHALED</span></span>
+          <span class="line line-outline"><span class="line-inner" data-hero-line>FULL-STACK</span></span>
+          <span class="line line-serif"><span class="line-inner" data-hero-line><em>developer</em><span class="hero-title-mark">✦</span></span></span>
+        </h1>
+
+        <div class="hero-bottom">
+          <p class="hero-lead" data-hero-fade id="hero-lead">
+            I build, customize, and maintain practical web experiences with React,
+            Node.js, Express, MongoDB, WordPress, and WooCommerce.
+          </p>
+
+          <div class="hero-side" data-hero-fade>
+            <a class="hero-scroll" href="#work" data-nav aria-label="Scroll to explore">
+              <span class="hero-scroll-ring">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M6 14l6 6 6-6" /></svg>
+              </span>
+              <span>Scroll to explore</span>
+            </a>
+            <div class="hero-coords">
+              <span>REACT</span>
+              <span>NODE.JS</span>
+              <span>WORDPRESS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticker hero-ticker" aria-hidden="true">
+        <div class="ticker-track" id="hero-ticker"></div>
+      </div>
+    </section>
+
+    <!-- ===================== WORK ===================== -->
+    <section class="section work" id="work">
+      <div class="section-head">
+        <span class="section-index">01</span>
+        <span class="section-label">Selected work</span>
+        <span class="section-rule"></span>
+        <span class="section-note">Selected projects</span>
+      </div>
+
+      <div class="work-intro">
+        <h2 class="display split-lines">
+          Selected<br /> <em>work</em>
+        </h2>
+        <p class="work-intro-copy reveal">
+          Four projects across full-stack JavaScript, WordPress, and WooCommerce —
+          with the actual scope of each, from feature work to maintenance and handover.
+        </p>
+      </div>
+
+      <ul class="project-list" id="project-list"></ul>
+
+      <div class="work-foot reveal">
+        <span>More experiments on</span>
+        <a class="link-arrow" id="work-github" href="#" target="_blank" rel="noopener">
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section about" id="about">
+      <div class="section-head">
+        <span class="section-index">02</span>
+        <span class="section-label">About</span>
+        <span class="section-rule"></span>
+        <span class="section-note">The short version</span>
+      </div>
+
+      <div class="about-grid">
+        <h2 class="statement" id="statement">
+          I build digital products that feel inevitable — fast, considered, and quietly ambitious.
+          From architecture to the last easing curve.
+        </h2>
+
+        <div class="about-aside">
+          <p class="about-body reveal" id="about-body"></p>
+
+          <div class="now">
+            <span class="mono-label">Right now</span>
+            <ul class="now-list" id="now-list"></ul>
+          </div>
+
+          <a class="link-arrow reveal" href="#contact" data-nav>
+            Work with me <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <!-- ===================== EXPERTISE ===================== -->
+    <section class="section expertise" id="expertise">
+      <div class="section-head">
+        <span class="section-index">03</span>
+        <span class="section-label">Expertise</span>
+        <span class="section-rule"></span>
+        <span class="section-note">What I bring</span>
+      </div>
+
+      <div class="expertise-intro">
+        <h2 class="display split-lines">
+          Sharp tools,<br /><em>sharper</em> judgement.
+        </h2>
+        <p class="reveal">
+          I'm deliberately full-stack. The best interface decisions usually start somewhere
+          in the data model — and the best backend decisions are felt in the interface.
+        </p>
+      </div>
+
+      <div class="cap-grid" id="cap-grid"></div>
+
+      <div class="stack-block">
+        <div class="stack-head">
+          <span class="mono-label">Working stack</span>
+          <span class="mono-label stack-hint">Hover to pause</span>
+        </div>
+        <div class="marquee stack-marquee" aria-label="Technologies I work with">
+          <div class="ticker-track stack-track" id="stack-track-1"></div>
+        </div>
+        <div class="marquee stack-marquee reverse" aria-hidden="true">
+          <div class="ticker-track stack-track" id="stack-track-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICES ===================== -->
+    <section class="section experience" id="services">
+      <div class="section-head">
+        <span class="section-index">04</span>
+        <span class="section-label">Services</span>
+        <span class="section-rule"></span>
+        <span class="section-note">What I take on</span>
+      </div>
+
+      <div class="experience-intro">
+        <h2 class="display split-lines">Where I<br /><em>can help.</em></h2>
+      </div>
+
+      <div class="exp-list" id="exp-list"></div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="contact" id="contact">
+      <div class="contact-glow" aria-hidden="true"></div>
+      <div class="contact-inner">
+        <div class="section-head contact-head">
+          <span class="section-index">05</span>
+          <span class="section-label">Contact</span>
+          <span class="section-rule"></span>
+          <span class="section-note">Project briefs welcome</span>
+        </div>
+
+        <div class="contact-layout">
+          <div class="contact-lead">
+            <p class="contact-eyebrow reveal">Have a project, a role, or a wild idea?</p>
+
+            <h2 class="contact-title">
+              <span class="contact-line"><span data-contact-line>Let's build</span></span>
+              <span class="contact-line"><span data-contact-line><em>something sharp.</em></span></span>
+            </h2>
+
+            <div class="contact-actions reveal">
+              <a class="mail-link" id="mail-link" href="#">
+                <span id="mail-text">khaled2isnoop@gmail.com</span>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 15L15 5M15 5H7M15 5V13" /></svg>
+              </a>
+              <button class="copy-btn" id="copy-btn" type="button" data-cursor="Copy">
+                <span>Copy address</span>
+              </button>
+              <a class="whatsapp-link" id="contact-whatsapp" href="#" target="_blank" rel="noopener" hidden>
+                <span class="wa-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
+                </span>
+                <span>WhatsApp</span>
+              </a>
+            </div>
+
+            <div class="contact-foot reveal">
+              <div class="socials" id="socials"></div>
+              <p class="contact-note">
+                Based in Egypt · Working remotely · Usually replies within a day
+              </p>
+            </div>
+          </div>
+
+          <form
+            class="contact-form reveal"
+            id="contact-form"
+            name="contact"
+            method="POST"
+            action="/?sent=1#contact"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            novalidate
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="form-honeypot" aria-hidden="true">
+              <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
+
+            <div class="form-fields">
+              <div class="form-heading">
+                <span class="mono-label">Start a project</span>
+                <span class="form-timing"><i aria-hidden="true"></i> Replies within a day</span>
+              </div>
+
+              <div class="form-row">
+                <label class="field" for="cf-name">
+                  <span>Name</span>
+                  <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Your name" required />
+                </label>
+                <label class="field" for="cf-email">
+                  <span>Email</span>
+                  <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required />
+                </label>
+              </div>
+
+              <div class="form-row">
+                <label class="field" for="cf-project">
+                  <span>Project type</span>
+                  <select id="cf-project" name="project">
+                    <option value="">Select one</option>
+                  </select>
+                </label>
+                <label class="field" for="cf-budget">
+                  <span>Budget</span>
+                  <select id="cf-budget" name="budget">
+                    <option value="">Select a range</option>
+                  </select>
+                </label>
+              </div>
+
+              <label class="field" for="cf-message">
+                <span>What are you building?</span>
+                <textarea id="cf-message" name="message" rows="4" placeholder="A sentence or two about the project, the timeline, and what success looks like." required></textarea>
+              </label>
+
+              <label class="field field-phone" for="cf-phone">
+                <span>WhatsApp <em>optional</em></span>
+                <input id="cf-phone" name="phone" type="tel" autocomplete="tel" placeholder="For a faster reply, if you like" />
+              </label>
+
+              <label class="form-consent">
+                <input type="checkbox" name="consent" value="yes" required />
+                <span>I'm happy to be contacted about this project.</span>
+              </label>
+
+              <div class="form-actions">
+                <button class="btn btn-acid form-submit" id="form-submit" type="submit">
+                  <span>Send brief</span>
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+                </button>
+                <button class="btn btn-whatsapp" id="form-whatsapp" type="button" hidden>
+                  <span class="wa-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
+                  </span>
+                  <span>WhatsApp instead</span>
+                </button>
+              </div>
+
+              <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+              <p class="form-fineprint">No newsletters. No spam. Just a reply from me.</p>
+            </div>
+
+            <div class="form-success" id="form-success" hidden>
+              <span class="success-mark" aria-hidden="true">✓</span>
+              <h3 id="form-success-title" tabindex="-1">Brief received.</h3>
+              <p id="form-success-copy">Thanks — I'll get back to you within a day.</p>
+              <div class="success-actions">
+                <a class="btn btn-whatsapp" id="success-whatsapp" href="#" target="_blank" rel="noopener" hidden>
+                  <span class="wa-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
+                  </span>
+                  <span>Continue on WhatsApp</span>
+                </a>
+                <a class="btn" id="success-inbox" href="dashboard.html" hidden>Open inbox</a>
+                <button class="btn" id="form-reset" type="button">Send another</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand">KHALED<span class="brand-dot">.</span></span>
+        <p>Full-Stack &amp; Web Developer — React, Node.js, WordPress &amp; WooCommerce.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <span class="mono-label">Navigate</span>
+          <a href="#work" data-nav>Work</a>
+          <a href="#about" data-nav>About</a>
+          <a href="#expertise" data-nav>Expertise</a>
+          <a href="#contact" data-nav>Contact</a>
+        </div>
+        <div class="footer-col">
+          <span class="mono-label">Elsewhere</span>
+          <div id="footer-socials"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-wordmark" aria-hidden="true">KHALED</div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Khaled. All rights reserved.</span>
+      <span class="footer-built">Built with Three.js, GSAP &amp; too much coffee.</span>
+      <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="true" title="Pause background motion">
+        <span class="motion-dot" aria-hidden="true"></span>
+        <span class="motion-label">Motion on</span>
+      </button>
+      <span class="footer-clock">
+        <i class="status-dot"></i>
+        <span id="clock">00:00:00</span> <span id="clock-zone">UTC</span>
+      </span>
+      <a class="local-inbox-link" id="local-inbox-link" href="dashboard.html" hidden>Local inbox ↗</a>
+      <a class="back-top" href="#top" data-nav>Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Case study dialog -->
+  <dialog class="case-dialog" id="case-dialog" aria-labelledby="case-title">
+    <div class="case-panel">
+      <button class="case-close" id="case-close" type="button" aria-label="Close case study">
+        <span></span><span></span>
+      </button>
+
+      <div class="case-scroll" id="case-scroll">
+        <div class="case-top">
+          <span class="mono-label" id="case-index">Case study 01</span>
+          <span class="mono-label" id="case-year">Full-stack</span>
+        </div>
+
+        <h2 class="case-title" id="case-title">Body Trip</h2>
+        <p class="case-subtitle" id="case-subtitle">Online course platform</p>
+
+        <div class="case-art" id="case-art" aria-hidden="true"></div>
+
+        <dl class="case-meta">
+          <div><dt>Role</dt><dd id="case-role"></dd></div>
+          <div><dt>Stack</dt><dd id="case-stack"></dd></div>
+          <div><dt>Scope</dt><dd id="case-outcome"></dd></div>
+        </dl>
+
+        <div class="case-body">
+          <div class="case-block">
+            <span class="mono-label">The challenge</span>
+            <p id="case-challenge"></p>
+          </div>
+          <div class="case-block">
+            <span class="mono-label">The approach</span>
+            <p id="case-approach"></p>
+          </div>
+          <div class="case-block">
+            <span class="mono-label">Context</span>
+            <p id="case-result"></p>
+          </div>
+        </div>
+
+        <div class="case-foot">
+          <span>Want the full walkthrough?</span>
+          <a class="link-arrow" id="case-mail" href="#">Ask me about it <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <noscript>
+    <div class="noscript">
+      <p>Khaled — Full-Stack &amp; Web Developer. Based in Egypt, working remotely.</p>
+      <p>Email <a href="mailto:khaled2isnoop@gmail.com">khaled2isnoop@gmail.com</a>.</p>
+    </div>
+  </noscript>
+
+  <!-- Libraries (UMD, CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- Content + app -->
+  <script src="js/content.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

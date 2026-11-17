@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050506" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Inbox — Khaled</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23050606'/%3E%3Ctext x='50' y='70' font-family='Arial,Helvetica,sans-serif' font-size='58' font-weight='700' fill='%23c6ff3d' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body class="dash-body">
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="dash-header">
+    <div class="dash-brand">
+      <a class="brand" href="index.html">KHALED<span class="brand-dot">.</span></a>
+      <span class="dash-slash">/</span>
+      <span class="dash-eyebrow">Inbox</span>
+      <span class="dash-badge" id="dash-badge">Local preview</span>
+    </div>
+    <div class="dash-header-actions">
+      <a class="btn" href="index.html">View site</a>
+      <a class="btn btn-acid" href="index.html#contact">New brief</a>
+    </div>
+  </header>
+
+  <main class="dash-main">
+    <div class="dash-intro">
+      <div>
+        <p class="dash-kicker">Contact submissions</p>
+        <h1 class="dash-title">Your <em>inbox.</em></h1>
+      </div>
+      <p class="dash-lede">
+        Every brief submitted from this browser lands here. Visitor submissions
+        are delivered by your form endpoint or Netlify Forms.
+      </p>
+    </div>
+
+    <section class="dash-stats" aria-label="Inbox summary">
+      <div class="dash-stat">
+        <span id="stat-total">00</span>
+        <small>Total briefs</small>
+      </div>
+      <div class="dash-stat">
+        <span id="stat-week">00</span>
+        <small>Last 7 days</small>
+      </div>
+      <div class="dash-stat">
+        <span id="stat-latest">—</span>
+        <small>Latest</small>
+      </div>
+    </section>
+
+    <section class="dash-panel" aria-label="Messages">
+      <div class="dash-toolbar">
+        <label class="dash-search">
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <circle cx="9" cy="9" r="5.5" />
+            <path d="M13.2 13.2 17 17" />
+          </svg>
+          <input id="dash-search" type="search" placeholder="Search name, email, or brief" aria-label="Search messages" />
+        </label>
+        <label class="dash-filter">
+          <span>Project</span>
+          <select id="dash-filter">
+            <option value="">All types</option>
+          </select>
+        </label>
+        <div class="dash-toolbar-actions">
+          <button class="btn" id="dash-export" type="button">Export CSV</button>
+          <button class="btn dash-clear" id="dash-clear" type="button">Clear all</button>
+        </div>
+      </div>
+
+      <p class="dash-banner" id="dash-banner" role="status" aria-live="polite" hidden></p>
+
+      <div class="dash-list" id="dash-list"></div>
+
+      <div class="dash-empty" id="dash-empty" hidden>
+        <span class="dash-empty-mark" aria-hidden="true">◎</span>
+        <h2>No briefs yet.</h2>
+        <p>Submit the contact form from this browser and it will appear here instantly.</p>
+        <a class="btn btn-acid" href="index.html#contact">Open the contact form</a>
+      </div>
+    </section>
+
+    <footer class="dash-foot">
+      <span>Local preview inbox · stored in this browser only</span>
+      <a href="index.html">Portfolio ↗</a>
+    </footer>
+  </main>
+
+  <script src="js/content.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
