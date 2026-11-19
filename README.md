@@ -29,7 +29,7 @@ Then visit **http://localhost:4173**.
 The server disables caching, which makes editing copy and refreshing painless. Change the port with `.\serve.ps1 -Port 8080`.
 
 ### Deploying
-Upload the folder as-is to any static host — Netlify, Vercel, GitHub Pages, Cloudflare Pages, S3. There is nothing to build. For best results, serve over HTTPS and set the Open Graph image URL to the absolute address of `assets/og.png`.
+Upload the folder as-is to any static host — Netlify, Vercel, GitHub Pages, Cloudflare Pages, S3. There is nothing to build. For best results, serve over HTTPS and set the Open Graph image URL to the absolute address of `assets/og.jpg`.
 
 The production copy is deployed on Netlify at **https://khaled-alaa-portfolio.netlify.app**. The form is handled by Netlify Forms, and submissions appear in the [production inbox](https://app.netlify.com/projects/khaled-alaa-portfolio/forms).
 
@@ -222,7 +222,8 @@ js/content.js       All editable copy, contact config, and project data
 js/app.js           UI behaviour + contact form + Three.js scene
 js/dashboard.js     Inbox rendering, search/filter, CSV export, deletes
 serve.ps1           Optional local static server
-assets/og.png       1200×630 social preview
+assets/og.jpg       1200×630 social preview (optimized)
+assets/og.png       1200×630 PNG source for the social preview
 ```
 
 ---
