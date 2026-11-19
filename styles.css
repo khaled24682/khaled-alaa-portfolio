@@ -255,6 +255,22 @@ html.has-cursor .cursor {
   }
 }
 
+/* A native <dialog> paints in the browser's top layer, above the custom
+   cursor element. Restore a real cursor while a case study is open, and
+   hide the custom one so the two cannot double up during the fade. */
+html.has-cursor .case-dialog[open],
+html.has-cursor .case-dialog[open] * {
+  cursor: auto !important;
+}
+html.has-cursor .case-dialog[open] a,
+html.has-cursor .case-dialog[open] button,
+html.has-cursor .case-dialog[open] [role="button"] {
+  cursor: pointer !important;
+}
+html.has-cursor:has(.case-dialog[open]) .cursor {
+  opacity: 0;
+}
+
 /* ---------- Loader ---------- */
 .loader {
   position: fixed;
