@@ -2,6 +2,14 @@
 
 A cinematic single-page portfolio built around a live WebGL chrome sculpture, editorial typography, and acid-lime accents. No build step, no framework, no `node_modules` — just HTML, CSS, and JavaScript. The profile, projects, and services come from Khaled's portfolio content PDF.
 
+## Live
+
+- **Site:** [khaled-alaa-portfolio.netlify.app](https://khaled-alaa-portfolio.netlify.app)
+- **Source:** [github.com/khaled24682/khaled-alaa-portfolio](https://github.com/khaled24682/khaled-alaa-portfolio)
+- **Production inbox:** [Netlify Forms → contact](https://app.netlify.com/projects/khaled-alaa-portfolio/forms)
+
+The free `khaled-alaa.is-a.dev` custom domain will replace the Netlify URL once its registration is approved.
+
 ---
 
 ## Run it
@@ -23,7 +31,7 @@ The server disables caching, which makes editing copy and refreshing painless. C
 ### Deploying
 Upload the folder as-is to any static host — Netlify, Vercel, GitHub Pages, Cloudflare Pages, S3. There is nothing to build. For best results, serve over HTTPS and set the Open Graph image URL to the absolute address of `assets/og.png`.
 
-The contact form works in two modes: on **Netlify** it is picked up automatically by Netlify Forms (no backend needed — submissions appear in the Netlify dashboard), and on any other host you can point `SITE.contact.endpoint` at a JSON endpoint. See [Contact form and inbox](#contact-form-and-inbox).
+The production copy is deployed on Netlify at **https://khaled-alaa-portfolio.netlify.app**. The form is handled by Netlify Forms, and submissions appear in the [production inbox](https://app.netlify.com/projects/khaled-alaa-portfolio/forms).
 
 ---
 
@@ -34,7 +42,7 @@ The contact form works in two modes: on **Netlify** it is picked up automaticall
 | Key | What it controls |
 | --- | --- |
 | `person` | Name, role, email, WhatsApp number, location, availability, timezone for the live clock |
-| `contact` | Form endpoint, local storage key, project types, budget ranges |
+| `contact` | Form endpoint, local storage key, Netlify inbox URL, project types, budget ranges |
 | `hero` | Eyebrow, intro paragraph, ticker words |
 | `socials` | Footer/social links and handles |
 | `about` | Statement, long bio, "Right now" list |
@@ -97,17 +105,17 @@ The dashboard is `noindex,nofollow` and only sees the inbox in **this browser**.
 
 ### Netlify Forms (recommended free option)
 
-The form is pre-wired for [Netlify Forms](https://docs.netlify.com/manage/forms/setup/): it has `data-netlify="true"`, `name="contact"`, a hidden `form-name` field, and a honeypot. Netlify only scans for forms after detection is enabled, so:
+The form is pre-wired for [Netlify Forms](https://docs.netlify.com/manage/forms/setup/): it has `data-netlify="true"`, `name="contact"`, a hidden `form-name` field, and a honeypot. Form detection is already enabled on the production site. For a fresh deploy:
 
 1. Create the site (Netlify Drop or a connected repo).
 2. In Netlify, open **Forms** and select **Enable form detection**.
 3. Deploy or redeploy the folder. Netlify scans the static HTML at deploy time.
-4. Open **Forms → contact** to read submissions.
+4. Open [Forms → contact](https://app.netlify.com/projects/khaled-alaa-portfolio/forms) to read submissions.
 5. Add an email alert under **Forms → Submission notifications**.
 
 No API key or server is needed. Keep the form markup in `index.html` — if it only exists in JavaScript, Netlify cannot register it.
 
-> On a deployed site, `dashboard.html` cannot read Netlify's submissions — Netlify is the source of truth. The page shows a notice when it is opened from a real domain.
+> On a deployed site, `dashboard.html` cannot read Netlify's submissions — Netlify is the source of truth. The page shows a notice and an **Open Netlify Forms inbox** button when it is opened from a real domain.
 
 ### Custom endpoint
 
