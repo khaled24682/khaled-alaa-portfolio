@@ -32,6 +32,9 @@
     export: $("#dash-export"),
     clear: $("#dash-clear"),
     banner: $("#dash-banner"),
+    formsRow: $("#dash-forms-row"),
+    formsLink: $("#dash-forms-link"),
+    footNote: $("#dash-foot-note"),
     list: $("#dash-list"),
     empty: $("#dash-empty"),
   };
@@ -117,6 +120,9 @@
     if (endpoint) {
       els.badge.textContent = "Endpoint connected";
       els.badge.classList.add("is-live");
+      if (els.footNote) {
+        els.footNote.textContent = "Preview inbox · production briefs are delivered to your endpoint";
+      }
       return;
     }
     if (isLocalPreview) {
@@ -126,8 +132,15 @@
     }
     els.badge.textContent = "Netlify Forms";
     els.badge.classList.add("is-live");
+    if (contact.inboxUrl && els.formsRow && els.formsLink) {
+      els.formsLink.href = contact.inboxUrl;
+      els.formsRow.hidden = false;
+    }
+    if (els.footNote) {
+      els.footNote.textContent = "Preview inbox · production briefs live in Netlify Forms";
+    }
     setBanner(
-      "This deploy delivers briefs to Netlify Forms. Read real submissions under Forms → contact in your Netlify dashboard — this list only shows briefs sent from this browser.",
+      "This deploy delivers briefs to Netlify Forms. Open the Netlify Forms inbox for real submissions — this list only shows briefs sent from this browser.",
       "warn",
       { sticky: true }
     );

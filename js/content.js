@@ -25,6 +25,8 @@ window.SITE = {
     // inbox at dashboard.html while developing.
     endpoint: "",
     storageKey: "portfolio-inbox",
+    // Production inbox for Netlify Forms (shown on dashboard.html when deployed).
+    inboxUrl: "https://app.netlify.com/projects/khaled-alaa-portfolio/forms",
     projectTypes: [
       "Full-stack application",
       "Website / WordPress",

@@ -309,6 +309,14 @@
   background: rgba(37, 211, 102, 0.08);
   color: #9df0b8;
 }
+.dash-forms-row {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(198, 255, 61, 0.03);
+}
+.dash-forms-row .btn {
+  padding: 9px 15px;
+}
 
 /* ---------- Brief list ---------- */
 .dash-list {
