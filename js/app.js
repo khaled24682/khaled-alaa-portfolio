@@ -723,7 +723,6 @@
       });
     };
     addOptions("#cf-project", config.projectTypes || []);
-    addOptions("#cf-budget", config.budgets || []);
 
     const waHref = (text) =>
       number ? `https://wa.me/${number}?text=${encodeURIComponent(text)}` : "";
@@ -747,7 +746,7 @@
       if (!submit) return;
       const label = $("span", submit);
       submit.disabled = sending;
-      if (label) label.textContent = sending ? "Sending..." : "Send brief";
+      if (label) label.textContent = sending ? "Sending..." : "Send message";
     };
 
     const collect = () => {
@@ -756,7 +755,6 @@
         name: String(data.get("name") || "").trim(),
         email: String(data.get("email") || "").trim(),
         project: String(data.get("project") || "").trim(),
-        budget: String(data.get("budget") || "").trim(),
         message: String(data.get("message") || "").trim(),
         phone: String(data.get("phone") || "").trim(),
         consent: data.get("consent") === "yes",
@@ -798,7 +796,6 @@
         body.set("name", entry.name);
         body.set("email", entry.email);
         body.set("project", entry.project);
-        body.set("budget", entry.budget);
         body.set("phone", entry.phone);
         body.set("message", entry.message);
         body.set("consent", entry.consent ? "yes" : "no");
@@ -825,7 +822,7 @@
       }
       if (number && waSuccess) {
         waSuccess.href = waHref(
-          `Hi ${owner} — I just sent a project brief.\n\nName: ${entry.name}\nProject: ${
+          `Hi ${owner} — I just sent a message.\n\nName: ${entry.name}\nProject: ${
             entry.project || "—"
           }\n\nLooking forward to talking.`
         );
@@ -891,7 +888,6 @@
         if (entry.name) lines.push(`Name: ${entry.name}`);
         if (entry.email) lines.push(`Email: ${entry.email}`);
         if (entry.project) lines.push(`Project: ${entry.project}`);
-        if (entry.budget) lines.push(`Budget: ${entry.budget}`);
         if (entry.message) lines.push("", entry.message);
         window.open(waHref(lines.join("\n")), "_blank", "noopener");
       });

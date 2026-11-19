@@ -42,7 +42,7 @@ The production copy is deployed on Netlify at **https://khaled-alaa-portfolio.ne
 | Key | What it controls |
 | --- | --- |
 | `person` | Name, role, email, WhatsApp number, location, availability, timezone for the live clock |
-| `contact` | Form endpoint, local storage key, Netlify inbox URL, project types, budget ranges |
+| `contact` | Form endpoint, local storage key, Netlify inbox URL, project types |
 | `hero` | Eyebrow, intro paragraph, ticker words |
 | `socials` | Footer/social links and handles |
 | `about` | Statement, long bio, "Right now" list |
@@ -89,7 +89,7 @@ Each project powers a row in the work index and the full-screen case study that 
 
 ## Contact form and inbox
 
-The contact section is a real form: name, email, project type, budget, brief, an optional WhatsApp number, a consent checkbox, and a honeypot. It validates in the browser, saves the brief to a local preview inbox, then delivers it to Netlify Forms or your own endpoint.
+The contact section is a real form: name, email, project type, message, an optional WhatsApp number, a consent checkbox, and a honeypot. It validates in the browser, saves the message to a local preview inbox, then delivers it to Netlify Forms or your own endpoint.
 
 ### Local preview
 
@@ -139,7 +139,6 @@ Payload:
   "email": "ada@example.com",
   "phone": "+971 50 123 4567",
   "project": "Full-stack application",
-  "budget": "$5k – $10k",
   "message": "…",
   "consent": true,
   "source": "/"

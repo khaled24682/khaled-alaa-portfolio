@@ -2162,6 +2162,9 @@ html.webgl-ready .hero-fallback {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
+.form-row--single {
+  grid-template-columns: 1fr;
+}
 .form-row + .form-row,
 .form-row + .field,
 .field + .form-consent {

@@ -34,7 +34,6 @@ window.SITE = {
       "Maintenance / fixes",
       "Something else",
     ],
-    budgets: ["Under $2k", "$2k – $5k", "$5k – $10k", "$10k+", "Let's talk"],
   },
 
   hero: {
