@@ -13,7 +13,7 @@ window.SITE = {
     // Digits only, with country code, e.g. "971501234567". Leave empty to
     // hide the WhatsApp actions until you are ready to publish the number.
     whatsapp: "201147080934",
-    location: "Egypt — remote",
+    location: "Remote",
     availability: "Open for new projects",
     // Used for the footer clock. Any IANA timezone works, e.g. "Europe/London".
     timezone: "Africa/Cairo",

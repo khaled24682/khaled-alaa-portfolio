@@ -77,7 +77,7 @@ Each project powers a row in the work index and the full-screen case study that 
 
 ### Things to confirm before publishing
 - `person.email`, `person.whatsapp`, and the social URLs are now the real profile details from the PDF.
-- `person.location` is set to `Egypt — remote` and the clock uses `Africa/Cairo`. Change these if the public location or timezone should be different.
+- `person.location` is set to `Remote` and the clock uses `Africa/Cairo`. Change these if the public location or timezone should be different.
 - `contact.endpoint` — only if you are not using Netlify Forms.
 - The project names, domains, and scope wording. The PDF's own accuracy checklist asks you to confirm you have permission to publish client names, domains, and screenshots, and that each description matches the work you personally did.
 - Project dates, screenshots, repository/demo links, and any verified outcomes. None of these were available in the source PDF, so they are intentionally absent rather than invented.
