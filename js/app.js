@@ -474,15 +474,27 @@
 
     const preview = document.createElement("div");
     preview.className = "cursor-preview";
+    preview.setAttribute("aria-hidden", "true");
     body.appendChild(preview);
 
     const xTo = gsap.quickTo(preview, "x", { duration: 0.42, ease: "power3.out" });
     const yTo = gsap.quickTo(preview, "y", { duration: 0.42, ease: "power3.out" });
-    let active = false;
+    let shown = false;
     let currentId = null;
 
-    const move = (e) => {
-      if (!active) return;
+    const hide = (duration = 0.3) => {
+      shown = false;
+      gsap.to(preview, {
+        opacity: 0,
+        scale: 0.86,
+        rotate: -4,
+        duration,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+    };
+
+    const place = (e) => {
       const offset = e.clientX > window.innerWidth - 430 ? -215 : 215;
       xTo(e.clientX + offset);
       yTo(e.clientY);
@@ -491,26 +503,52 @@
     rows.forEach((row) => {
       const project = SITE.projects.find((p) => p.id === row.dataset.project);
       if (!project) return;
-      row.addEventListener("pointerenter", () => {
+
+      // pointermove (not pointerenter) is what proves the pointer is really
+      // over the row. Browsers also fire enter events when the page scrolls
+      // beneath a stationary cursor, which used to leave the preview
+      // stranded on screen with no matching leave event.
+      row.addEventListener("pointermove", (e) => {
         if (currentId !== project.id) {
           preview.innerHTML = artMarkup(project);
           currentId = project.id;
         }
-        active = true;
-        gsap.to(preview, { opacity: 1, scale: 1, rotate: -2, duration: 0.5, ease: "power3.out" });
+        place(e);
+        if (!shown) {
+          shown = true;
+          gsap.to(preview, {
+            opacity: 1,
+            scale: 1,
+            rotate: -2,
+            duration: 0.4,
+            ease: "power3.out",
+            overwrite: "auto",
+          });
+        }
       });
-      row.addEventListener("pointermove", move);
-      row.addEventListener("pointerleave", () => {
-        active = false;
-        gsap.to(preview, { opacity: 0, scale: 0.86, rotate: -4, duration: 0.35, ease: "power2.out" });
-      });
+
+      row.addEventListener("pointerleave", () => hide(0.3));
+
+      // Clicking opens the case dialog while the pointer is still over the
+      // row, so the leave event never fires. Clear it explicitly.
+      row.addEventListener("click", () => hide(0.15));
     });
 
-    window.addEventListener("scroll", () => {
-      if (!active) return;
-      active = false;
-      gsap.to(preview, { opacity: 0, duration: 0.25 });
-    }, { passive: true });
+    // Belt and braces: any pointer movement outside a project row, any exit
+    // from the document, scroll, or tab switch clears the floating art.
+    document.addEventListener(
+      "pointermove",
+      (e) => {
+        if (!e.target.closest || !e.target.closest(".project-row")) hide(0.25);
+      },
+      { passive: true }
+    );
+    document.addEventListener("pointerleave", () => hide(0.2));
+    window.addEventListener("blur", () => hide(0.2));
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) hide(0.2);
+    });
+    window.addEventListener("scroll", () => hide(0.25), { passive: true });
   }
 
   /* ---------------------------------------------------------
