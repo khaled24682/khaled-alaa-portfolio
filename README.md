@@ -4,11 +4,10 @@ A cinematic single-page portfolio built around a live WebGL chrome sculpture, ed
 
 ## Live
 
-- **Site:** [khaled-alaa-portfolio.netlify.app](https://khaled-alaa-portfolio.netlify.app)
+- **Site:** [khaled-alaa.is-a.dev](https://khaled-alaa.is-a.dev/)
 - **Source:** [github.com/khaled24682/khaled-alaa-portfolio](https://github.com/khaled24682/khaled-alaa-portfolio)
 - **Production inbox:** [Netlify Forms → contact](https://app.netlify.com/projects/khaled-alaa-portfolio/forms)
-
-The free `khaled-alaa.is-a.dev` custom domain will replace the Netlify URL once its registration is approved.
+- **Netlify project:** [khaled-alaa-portfolio](https://khaled-alaa-portfolio.netlify.app)
 
 ---
 
@@ -31,7 +30,7 @@ The server disables caching, which makes editing copy and refreshing painless. C
 ### Deploying
 Upload the folder as-is to any static host — Netlify, Vercel, GitHub Pages, Cloudflare Pages, S3. There is nothing to build. For best results, serve over HTTPS and set the Open Graph image URL to the absolute address of `assets/og.jpg`.
 
-The production copy is deployed on Netlify at **https://khaled-alaa-portfolio.netlify.app**. The form is handled by Netlify Forms, and submissions appear in the [production inbox](https://app.netlify.com/projects/khaled-alaa-portfolio/forms).
+The production copy is deployed on Netlify and served at **https://khaled-alaa.is-a.dev** (with `www` redirecting to the apex). The form is handled by Netlify Forms, and submissions appear in the [production inbox](https://app.netlify.com/projects/khaled-alaa-portfolio/forms).
 
 ---
 
