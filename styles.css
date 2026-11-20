@@ -1356,12 +1356,6 @@ html.webgl-ready .hero-fallback {
   inset: 8% 8% 13%;
   z-index: 2;
 }
-.ui-course,
-.ui-site,
-.ui-builder,
-.ui-store {
-  height: 100%;
-}
 
 /* 01 — course platform */
 .ui-course {
