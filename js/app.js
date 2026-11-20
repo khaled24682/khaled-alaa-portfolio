@@ -457,14 +457,75 @@
      Project art + hover preview
      --------------------------------------------------------- */
   function artMarkup(project) {
-    const shapes = {
-      1: '<span class="art-orb"></span><span class="art-ring"></span>',
-      2: '<span class="art-blob"></span><span class="art-ring"></span>',
-      3: '<span class="art-contours"></span><span class="art-grid"></span><span class="art-pin"></span>',
-      4: '<span class="art-shape"></span><span class="art-shape"></span>',
-    };
     const tag = `<span class="art-tag">${project.artTag || "PROJECT"}</span>`;
-    return `<div class="art art-${project.art}">${shapes[project.art] || shapes[1]}${tag}</div>`;
+    if (project.image) {
+      return `<div class="art art-${project.art} art-image" aria-hidden="true"><img src="${project.image}" alt="" loading="lazy" decoding="async" draggable="false" />${tag}</div>`;
+    }
+    const layouts = {
+      1: `
+        <div class="ui ui-course">
+          <div class="ui-video">
+            <span class="ui-play"></span>
+            <span class="ui-timeline"><i></i></span>
+          </div>
+          <div class="ui-lessons">
+            <span class="ui-lesson is-on"><b>01</b><i></i></span>
+            <span class="ui-lesson"><b>02</b><i></i></span>
+            <span class="ui-lesson"><b>03</b><i></i></span>
+          </div>
+        </div>`,
+      2: `
+        <div class="ui ui-site">
+          <div class="ui-browser">
+            <span class="ui-dot"></span><span class="ui-dot"></span><span class="ui-dot"></span>
+            <span class="ui-url">RTL</span>
+          </div>
+          <div class="ui-site-body">
+            <div class="ui-site-hero">
+              <span class="ui-kicker">BLOG / AR</span>
+              <span class="ui-headline">Blog</span>
+              <span class="ui-line"></span>
+              <span class="ui-line is-short"></span>
+            </div>
+            <div class="ui-site-cards">
+              <span class="ui-card"><i></i><b></b></span>
+              <span class="ui-card"><i></i><b></b></span>
+            </div>
+          </div>
+        </div>`,
+      3: `
+        <div class="ui ui-builder">
+          <div class="ui-canvas">
+            <span class="ui-block"></span>
+            <span class="ui-block is-selected"></span>
+            <span class="ui-block"></span>
+            <span class="ui-block"></span>
+            <span class="ui-block"></span>
+            <span class="ui-block"></span>
+          </div>
+          <div class="ui-panel">
+            <span class="ui-chip">ACF</span>
+            <span class="ui-chip">TEXT</span>
+            <span class="ui-chip">IMAGE</span>
+            <span class="ui-cache">↻ CACHE</span>
+          </div>
+        </div>`,
+      4: `
+        <div class="ui ui-store">
+          <div class="ui-products">
+            <span class="ui-product"><i></i><b></b><em></em></span>
+            <span class="ui-product"><i></i><b></b><em></em></span>
+            <span class="ui-product"><i></i><b></b><em></em></span>
+          </div>
+          <div class="ui-cart">
+            <span class="ui-cart-row"><i></i><b></b></span>
+            <span class="ui-cart-row"><i></i><b></b></span>
+            <span class="ui-cart-row is-total"><i></i><b></b></span>
+            <span class="ui-pay">SSL</span>
+          </div>
+        </div>`,
+    };
+    return `<div class="art art-${project.art}" aria-hidden="true">${layouts[project.art] || ""}${tag}</div>`;
   }
 
   function initProjectPreview() {
@@ -549,6 +610,21 @@
       if (document.hidden) hide(0.2);
     });
     window.addEventListener("scroll", () => hide(0.25), { passive: true });
+
+    // Warm the project images while the page is idle so the first hover
+    // doesn't flash an empty card.
+    const warm = () => {
+      SITE.projects.forEach((project) => {
+        if (!project.image) return;
+        const img = new Image();
+        img.src = project.image;
+      });
+    };
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(warm, { timeout: 2500 });
+    } else {
+      setTimeout(warm, 1200);
+    }
   }
 
   /* ---------------------------------------------------------
